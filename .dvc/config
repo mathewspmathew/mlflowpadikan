@@ -1,6 +1,9 @@
 [core]
-    remote = localremote
+    remote = gcsremote
 ['remote "gdrive"']
     url = gdrive://168mHZUpe8UzigFFkAbZHNIispvDGVEjX
 ['remote "localremote"']
     url = ../../dvc-storage
+['remote "gcsremote"']
+    url = gs://dvc-mlops-storage-blah
+    credentialpath = ../gcs-creds.json

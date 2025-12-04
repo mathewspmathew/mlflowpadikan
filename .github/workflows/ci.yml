@@ -30,3 +30,7 @@ jobs:
 
     - name: Push updated artifacts to DVC remote
       run: dvc push
+    - name: Create GCS credentials file
+      run: echo "$GCS_CREDS" > gcs-creds.json
+      env:
+        GCS_CREDS: ${{ secrets.GCS_CREDS }}
