@@ -34,3 +34,7 @@ jobs:
       run: echo "$GCS_CREDS" > gcs-creds.json
       env:
         GCS_CREDS: ${{ secrets.GCS_CREDS }}
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        pip install "dvc[gs]" mlflow
