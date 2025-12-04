@@ -1,0 +1,10 @@
+artifact_location: file:///E:/learnnn/week%2042/dvc-project/mlruns/0/models/m-ad04ca3e9c8547b8a34c54496a532184/artifacts
+creation_timestamp: 1764831122169
+experiment_id: '0'
+last_updated_timestamp: 1764831129198
+model_id: m-ad04ca3e9c8547b8a34c54496a532184
+model_type: null
+name: model
+source_run_id: 31ff2c62cadf49a2bdd4a608e04977b5
+status: 2
+status_message: null

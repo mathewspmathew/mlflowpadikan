@@ -1,0 +1,22 @@
+artifact_path: file:///E:/learnnn/week%2042/dvc-project/mlruns/0/models/m-ac3448ae6ff0408fa38d1436b3f0f9b1/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.13.9
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.7.2
+mlflow_version: 3.6.0
+model_id: m-ac3448ae6ff0408fa38d1436b3f0f9b1
+model_size_bytes: 863
+model_uuid: m-ac3448ae6ff0408fa38d1436b3f0f9b1
+prompts: null
+run_id: 2654b28414ce4c26ab2c92b7fce8a9ce
+utc_time_created: '2025-12-04 05:35:20.828879'

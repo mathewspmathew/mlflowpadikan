@@ -3,29 +3,39 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 import joblib
+import mlflow
+import mlflow.sklearn
 
-# Load dataset
-df = pd.read_csv("data/titanic.csv")
+# Start MLflow run
+with mlflow.start_run():
 
-# Preprocess data: fill missing values and select basic features
-df["Age"] = df["Age"].fillna(df["Age"].median())
-df["Fare"] = df["Fare"].fillna(df["Fare"].median())
-df["Sex"] = df["Sex"].map({"male": 0, "female": 1})
+    df = pd.read_csv("data/titanic.csv")
 
-X = df[["Pclass", "Sex", "Age", "Fare"]]
-y = df["Survived"]
+    df["Age"] = df["Age"].fillna(df["Age"].median())
+    df["Fare"] = df["Fare"].fillna(df["Fare"].median())
+    df["Sex"] = df["Sex"].map({"male": 0, "female": 1})
 
-# Split dataset
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    X = df[["Pclass", "Sex", "Age", "Fare"]]
+    y = df["Survived"]
 
-# Train model
-model = LogisticRegression(max_iter=500)
-model.fit(X_train, y_train)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Evaluate
-pred = model.predict(X_test)
-acc = accuracy_score(y_test, pred)
-print("Accuracy:", acc)
+    # Hyperparameter
+    max_iter = 500
+    mlflow.log_param("max_iter", max_iter)
 
-# Save model artifact
-joblib.dump(model, "model.pkl")
+    model = LogisticRegression(max_iter=max_iter)
+    model.fit(X_train, y_train)
+
+    pred = model.predict(X_test)
+    acc = accuracy_score(y_test, pred)
+    print("Accuracy:", acc)
+
+    # Log metric
+    mlflow.log_metric("accuracy", acc)
+
+    # Save model
+    joblib.dump(model, "model.pkl")
+
+    # Log model artifact
+    mlflow.sklearn.log_model(model, "model")
