@@ -5,6 +5,9 @@ from sklearn.metrics import accuracy_score
 import joblib
 import mlflow
 import mlflow.sklearn
+mlflow.set_tracking_uri("sqlite:///mlflow.db")  # Tracking DB
+mlflow.set_experiment("titanic-experiment")
+mlflow.set_registry_uri("gs://dvc-mlops-storage-blah/mlflow")  # GCS artifact store
 
 # Start MLflow run
 with mlflow.start_run():
