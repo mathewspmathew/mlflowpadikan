@@ -20,7 +20,16 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
-        pip install dvc dvc[gdrive] mlflow
+        pip install "dvc[gs]" mlflow
+        pip install dvc-gs
+
+    - name: Create GCS credentials file
+      run: echo "$GCS_CREDS" > gcs-creds.json
+      env:
+        GCS_CREDS: ${{ secrets.GCS_CREDS }}
+
+    - name: Configure GOOGLE_APPLICATION_CREDENTIALS
+      run: echo "GOOGLE_APPLICATION_CREDENTIALS=$PWD/gcs-creds.json" >> $GITHUB_ENV
 
     - name: Pull data from DVC remote
       run: dvc pull
@@ -30,13 +39,3 @@ jobs:
 
     - name: Push updated artifacts to DVC remote
       run: dvc push
-    - name: Create GCS credentials file
-      run: echo "$GCS_CREDS" > gcs-creds.json
-      env:
-        GCS_CREDS: ${{ secrets.GCS_CREDS }}
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt
-        pip install dvc-gs
-        pip install mlflow
-
